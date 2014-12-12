@@ -3,12 +3,12 @@
 
 makeCacheMatrix <- function(x = matrix()) {
   
-    m <- NULL
-    set <- function(y) {
+    m <- NULL          ## sets m to null in the function environment
+    set <- function(y) {        
       x <<- y
-      m <<- NULL
+      m <<- NULL      ## sets m to null at the global environment
     }
-    get <- function() x
+    get <- function() x       ##creates a list of 4 functions
     setsolve <- function(solve) m <<- solve
     getsolve <- function() m
     list(set = set, get = get,
@@ -20,7 +20,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ## makeCacheMatrix above. If the inverse has already been calculated (and the matrix has not changed), 
 ## then the cachesolve should retrieve the inverse from the cache.
 
-cacheSolve <- function(x = matrix()) {
+cacheSolve <- function(x = matrix()) {   
   m <- x$getsolve()
   if(!is.null(m)) {
     message("getting cached data")
