@@ -5,11 +5,11 @@ makeCacheMatrix <- function(x = matrix()) {
   
     m <- NULL          ## sets m to null in the function environment
     set <- function(y) {        
-      x <<- y
-      m <<- NULL      ## sets m to null at the global environment
+      x <<- y         
+      m <<- NULL      ## sets m to null in the global environment
     }
-    get <- function() x       ##creates a list of 4 functions
-    setsolve <- function(solve) m <<- solve
+    get <- function() x                      ## returns value of original matrix
+    setsolve <- function(solve) m <<- solve  ## stored at the global environment
     getsolve <- function() m
     list(set = set, get = get,
          setsolve = setsolve,
@@ -22,12 +22,12 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x = matrix()) {   
   m <- x$getsolve()
-  if(!is.null(m)) {
-    message("getting cached data")
-    return(m)
-  }
-  data <- x$get()
-  m <- solve(data)
-  x$setsolve(m)
-  m
+  if(!is.null(m)) {                           ## if there is data in the matrix m
+    message("getting cached data")            ## print "getting cached data"
+    return(m)                                 ## return matrix m 
+  }                                           ## if m is.null 
+  data <- x$get()                             ## matrix is stored at x$get()
+  m <- solve(data)                            ## m <- the inverse of the original matrix
+  x$setsolve(m)                               ## 
+  m                                           ## return m 
 }
